@@ -11,6 +11,7 @@ import { connectToDatabase } from "./functions/ConnecttoDatabase.js";
 
 // import routes
 import DashboardUserRoutes from "./routes/DashboardUserRoutes.js";
+import CategoryRoutes from "./routes/CategoryRoutes.js";
 
 dotenv.config();
 const app = express();
@@ -27,6 +28,7 @@ connectToDatabase();
 
 // routes
 app.use("/DashboardUser", DashboardUserRoutes);
+app.use("/category", CategoryRoutes);
 
 app.get("/", (req, res) => {
   res.send("Hello World");
