@@ -4,7 +4,7 @@ import {
   deleteCategory,
   readAllCategory,
   updateCategory,
-} from "../controllers/Dashboard/DashboardCategory/DashboardCategoryController.js";
+} from "../controllers/Dashboard/DashboardProduct/DashboardCategoryController.js";
 
 const router = express.Router();
 

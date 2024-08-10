@@ -20,12 +20,25 @@ export const createCategory = async (req, res) => {
   try {
     // check if category already exists
     const categoryExists = await Category.findOne({ categoryEnglishName: req.body.categoryEnglishName });
-    if (categoryExists?.categoryStatus === "active")
+    const categoryExistsThai = await Category.findOne({ categoryThaiName: req.body.categoryThaiName });
+    if (categoryExists?.categoryStatus === "active" || categoryExistsThai?.categoryStatus === "active")
       return res.status(400).json({ message: "Category already exists" });
     // if it is inactive, update it to active
-    if (categoryExists?.categoryStatus === "inactive") {
-      await Category.findByIdAndUpdate(categoryExists._id, { categoryStatus: "active" });
-      return res.status(200).json({ message: "Category updated successfully" });
+    if (categoryExists?.categoryStatus === "inactive" || categoryExistsThai?.categoryStatus === "inactive") {
+      if (categoryExists) {
+        await Category.findByIdAndUpdate(categoryExists._id, {
+          categoryStatus: "active",
+          categoryEnglishName: req.body.categoryEnglishName,
+          categoryThaiName: req.body.categoryThaiName,
+        });
+      } else {
+        await Category.findByIdAndUpdate(categoryExistsThai._id, {
+          categoryStatus: "active",
+          categoryEnglishName: req.body.categoryEnglishName,
+          categoryThaiName: req.body.categoryThaiName,
+        });
+      }
+      return res.status(200).json({ message: "Category create successfully" });
     }
     const newCategory = new Category({ ...req.body, categoryToken: uuid() });
     await newCategory.save();

@@ -5,6 +5,7 @@ const ProductSchema = new Schema({
   EnglishName: { type: String, required: true, unique: true },
   Description: { type: String, required: true, default: "--" },
   category: { type: Schema.Types.ObjectId, ref: "Category" },
+  designcode: { type: Schema.Types.ObjectId, ref: "DesignCode" },
   status: { type: String, required: true, default: "active", enum: ["active", "inactive", "draft"] },
 });
 
