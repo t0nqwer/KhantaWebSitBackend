@@ -13,6 +13,7 @@ import { connectToDatabase } from "./functions/ConnecttoDatabase.js";
 import DashboardUserRoutes from "./routes/DashboardUserRoutes.js";
 import CategoryRoutes from "./routes/CategoryRoutes.js";
 import DesignCodeRoutes from "./routes/DesignCodeRoutes.js";
+import SizeDetailRoutes from "./routes/SizeDetailRoutes.js";
 
 dotenv.config();
 const app = express();
@@ -31,6 +32,7 @@ connectToDatabase();
 app.use("/DashboardUser", DashboardUserRoutes);
 app.use("/category", CategoryRoutes);
 app.use("/designCode", DesignCodeRoutes);
+app.use("/sizeDetail", SizeDetailRoutes);
 
 app.get("/", (req, res) => {
   res.send("Hello World");
