@@ -14,6 +14,7 @@ import DashboardUserRoutes from "./routes/DashboardUserRoutes.js";
 import CategoryRoutes from "./routes/CategoryRoutes.js";
 import DesignCodeRoutes from "./routes/DesignCodeRoutes.js";
 import SizeDetailRoutes from "./routes/SizeDetailRoutes.js";
+import FabricRoutes from "./routes/FabricRoutes.js";
 
 dotenv.config();
 const app = express();
@@ -33,6 +34,7 @@ app.use("/DashboardUser", DashboardUserRoutes);
 app.use("/category", CategoryRoutes);
 app.use("/designCode", DesignCodeRoutes);
 app.use("/sizeDetail", SizeDetailRoutes);
+app.use("/fabric", FabricRoutes);
 
 app.get("/", (req, res) => {
   res.send("Hello World");

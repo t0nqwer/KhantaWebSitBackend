@@ -1,9 +1,17 @@
 import Fabric from "../../../models/Product/FabricModal.js";
+import Product from "../../../models/Product/ProductModal.js";
 
 export const readAllFabric = async (req, res) => {
   try {
     const data = await Fabric.find({ status: "active" });
-    res.status(200).json(data);
+    //seaech for product in fabric
+    const findProduct = data.map(async (fabric) => {
+      const product = await Product.countDocuments({ fabric: fabric._id }).sort({ fabricThaiName: 1 });
+      return { ...fabric._doc, productCount: product };
+    });
+    const result = await Promise.all(findProduct);
+
+    res.status(200).json(result);
   } catch (error) {
     res.status(404).json({ message: error.message });
   }
