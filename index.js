@@ -17,6 +17,7 @@ import SizeDetailRoutes from "./routes/SizeDetailRoutes.js";
 import FabricRoutes from "./routes/FabricRoutes.js";
 import ProductRoutes from "./routes/ProductRoutes.js";
 import ProductTagRoutes from "./routes/TagRoutes.js";
+import { io } from "./socket.io/socketio.js";
 
 dotenv.config();
 const app = express();
@@ -45,7 +46,14 @@ app.get("/", (req, res) => {
 });
 
 const PORT = process.env.PORT || 5050;
-
-app.listen(PORT, () => {
+ 
+const server = app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
+});
+
+io.attach(server, {
+  cors: {
+    origin: "*",
+    methods: ["GET", "POST"],
+  },
 });
